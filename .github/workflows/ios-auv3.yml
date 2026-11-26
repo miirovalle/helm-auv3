@@ -77,7 +77,8 @@ jobs:
           lipo -info "$APPEX/Helm"
 
           # The AUv3 entry point JUCE exports (referenced by NSExtensionPrincipalClass).
-          nm -gU "$APPEX/Helm" | grep -q "_OBJC_CLASS_\$_helmFactoryAUv3" \
+          nm -gU "$APPEX/Helm" > symbols.txt
+          grep -q "_OBJC_CLASS_\$_helmFactoryAUv3" symbols.txt \
             || { echo "helmFactoryAUv3 not found in appex"; exit 1; }
 
           mkdir -p dist
