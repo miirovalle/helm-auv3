@@ -33,6 +33,11 @@ jobs:
           python3 builds/ios/generate_project.py
           git diff --exit-code -- builds/ios/Helm_iOS.xcodeproj
 
+      - name: Validate project
+        run: |
+          plutil -lint "$PROJECT/project.pbxproj"
+          xcodebuild -list -project "$PROJECT"
+
       - name: Build (unsigned)
         run: |
           set -o pipefail

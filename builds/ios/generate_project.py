@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Generates builds/ios/Helm_iOS.xcodeproj.
 
 Helm ships with JUCE 5.3.2 but without the Projucer sources, so the iOS
@@ -169,7 +169,7 @@ class Project:
             sections.setdefault(isa, []).append(entry)
 
         out = ["// !$*UTF8*$!\n{\n", "\tarchiveVersion = 1;\n", "\tclasses = {\n\t};\n",
-               "\tobjectVersion = 54;\n", "\tobjects = {\n"]
+               "\tobjectVersion = 56;\n", "\tobjects = {\n"]
         for name in sorted(sections):
             out.append("\n/* Begin %s section */\n" % name)
             out.extend(sections[name])
@@ -519,7 +519,7 @@ def main():
         '{isa = PBXProject; attributes = { LastUpgradeCheck = 1500; '
         'ORGANIZATIONNAME = "Matt Tytel"; }; buildConfigurationList = %s '
         '/* Build configuration list for PBXProject "%s" */; compatibilityVersion = '
-        '"Xcode 12.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = '
+        '"Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = '
         '(\n\t\t\ten,\n\t\t\tBase,\n\t\t); mainGroup = %s; productRefGroup = %s /* Products */; '
         'projectDirPath = ""; projectRoot = ""; targets = (\n%s\t\t); }'
         % (project_config_list, PROJECT_NAME, main_group, products_group,
@@ -538,3 +538,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
