@@ -62,7 +62,7 @@ FormantTuner::~FormantTuner() {
 }
 
 void FormantTuner::paintBackground(Graphics& g) {
-  static const DropShadow component_shadow(Colour(0xbb000000), 4, Point<int>(0, 0));
+  static const DropShadow component_shadow(Colour(0xbb000000), 4, juce::Point<int>(0, 0));
   SynthSection::paintBackground(g);
 
   g.setColour(Colour(0xffbbbbbb));

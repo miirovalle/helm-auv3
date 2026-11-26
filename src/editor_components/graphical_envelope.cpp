@@ -44,7 +44,7 @@ GraphicalEnvelope::~GraphicalEnvelope() { }
 
 void GraphicalEnvelope::paint(Graphics& g) {
   static const PathStrokeType stroke(1.5f, PathStrokeType::beveled, PathStrokeType::rounded);
-  static const DropShadow shadow(Colour(0xbb000000), 5, Point<int>(0, 0));
+  static const DropShadow shadow(Colour(0xbb000000), 5, juce::Point<int>(0, 0));
 
   g.fillAll(Colour(0xff424242));
 
