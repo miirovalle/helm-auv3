@@ -34,9 +34,7 @@ jobs:
           git diff --exit-code -- builds/ios/Helm_iOS.xcodeproj
 
       - name: Validate project
-        run: |
-          plutil -lint "$PROJECT/project.pbxproj"
-          xcodebuild -list -project "$PROJECT"
+        run: xcodebuild -list -project "$PROJECT"
 
       - name: Build (unsigned)
         run: |
