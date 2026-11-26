@@ -143,7 +143,7 @@ def collect_sources():
         for name in sorted(os.listdir(path)):
             if name.endswith(".cpp"):
                 sources.append((directory + "/" + name).replace("\\", "/"))
-    sources.extend(SHARED_JUCE_FILES)
+    sources.extend("JuceLibraryCode/" + name for name in SHARED_JUCE_FILES)
     return sorted(sources)
 
 
