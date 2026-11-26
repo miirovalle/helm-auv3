@@ -11,7 +11,7 @@ env:
   PROJECT: builds/ios/Helm_iOS.xcodeproj
   TARGET: Helm - AUv3 App
   CONFIGURATION: Release
-  BUILD_DIR: build/DerivedData
+  BUILD_DIR: build/out
 
 jobs:
   build-ios-auv3:
@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Show toolchain
         run: |
@@ -41,7 +41,8 @@ jobs:
             -target "$TARGET" \
             -configuration "$CONFIGURATION" \
             -sdk iphoneos \
-            -derivedDataPath "$BUILD_DIR" \
+            SYMROOT="$PWD/$BUILD_DIR/Products" \
+            OBJROOT="$PWD/$BUILD_DIR/Intermediates" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
@@ -58,7 +59,7 @@ jobs:
       - name: Verify AUv3 bundle
         run: |
           set -euo pipefail
-          APP="$BUILD_DIR/Build/Products/$CONFIGURATION-iphoneos/Helm.app"
+          APP="$BUILD_DIR/Products/$CONFIGURATION-iphoneos/Helm.app"
           APPEX="$APP/PlugIns/Helm.appex"
           test -d "$APP" || { echo "App bundle missing"; exit 1; }
           test -d "$APPEX" || { echo "AUv3 app extension missing"; exit 1; }
@@ -82,7 +83,7 @@ jobs:
       - name: Package unsigned IPA
         run: |
           set -euo pipefail
-          APP="$BUILD_DIR/Build/Products/$CONFIGURATION-iphoneos/Helm.app"
+          APP="$BUILD_DIR/Products/$CONFIGURATION-iphoneos/Helm.app"
           rm -rf dist/Payload
           mkdir -p dist/Payload
           cp -R "$APP" dist/Payload/
@@ -91,7 +92,7 @@ jobs:
           ls -la dist
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Helm-AUv3-iOS-unsigned
           path: |

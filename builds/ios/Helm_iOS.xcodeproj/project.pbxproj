@@ -791,7 +791,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-lHelm",
 					"-framework",
 					"Accelerate",
 					"-framework",
@@ -893,7 +892,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-lHelm",
 					"-framework",
 					"Accelerate",
 					"-framework",
@@ -994,7 +992,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-lHelm",
 					"-framework",
 					"Accelerate",
 					"-framework",
@@ -1103,7 +1100,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-lHelm",
 					"-framework",
 					"Accelerate",
 					"-framework",
@@ -1211,7 +1207,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-lHelm",
 					"-framework",
 					"Accelerate",
 					"-framework",
@@ -1317,7 +1312,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-lHelm",
 					"-framework",
 					"Accelerate",
 					"-framework",

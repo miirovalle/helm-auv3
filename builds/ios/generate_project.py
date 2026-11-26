@@ -211,7 +211,7 @@ def target_settings(config, kind):
     debug_defines = ['"_DEBUG=1"', '"DEBUG=1"'] if debug else ['"_NDEBUG=1"', '"NDEBUG=1"']
     defines = debug_defines + [q(d) for d in defines]
 
-    ldflags = ['"$(inherited)"', '"-ObjC"', '"-lHelm"']
+    ldflags = ['"$(inherited)"', '"-ObjC"']
     for framework in FRAMEWORKS:
         ldflags.append('"-framework"')
         ldflags.append(q(framework))

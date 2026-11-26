@@ -49,6 +49,20 @@ Open /builds/osx/Helm.xcodeproj for plugin versions
 Open /standalone/builds/vs15/Helm.sln for standalone version  
 Open /builds/vs15/Helm.sln for plugin versions
 
+#### iOS (AUv3, iPadOS 17+)
+Helm can be built as an AUv3 app extension for iPhone/iPad. The Xcode project
+is generated from the existing JUCE sources:
+
+```bash
+python3 builds/ios/generate_project.py
+xcodebuild -project builds/ios/Helm_iOS.xcodeproj \
+  -target "Helm - AUv3 App" -configuration Release -sdk iphoneos build
+```
+
+GitHub Actions builds an unsigned IPA on every push; see
+[builds/ios/README.md](builds/ios/README.md) for signing and installation.
+
+
 ### Features:
  - 32 voice polyphony
  - Interactive visual interface
