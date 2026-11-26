@@ -42,9 +42,9 @@ FullInterface::FullInterface(mopo::control_map controls, mopo::output_map modula
   open_gl_context.setContinuousRepainting(true);
   open_gl_context.setRenderer(this);
   open_gl_context.attachTo(*getTopLevelComponent());
-#if JUCE_IOS
-  open_gl_context.setOpenGLVersionRequired(OpenGLContext::openGL2_0);
-#else
+#if ! JUCE_IOS
+  // iOS always gets an ES2 context, which is what the bundled GLSL ES 1.00
+  // shaders need; macOS needs an explicit request for a 3.2 context.
   open_gl_context.setOpenGLVersionRequired(OpenGLContext::openGL3_2);
 #endif
 
