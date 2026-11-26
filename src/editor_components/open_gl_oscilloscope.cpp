@@ -87,8 +87,10 @@ void OpenGLOscilloscope::init(OpenGLContext& open_gl_context) {
 
 void OpenGLOscilloscope::drawLines(OpenGLContext& open_gl_context) {
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+#if ! JUCE_IOS
   glEnable(GL_LINE_SMOOTH);
   glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+#endif
   glLineWidth(1.0f);
 
   setViewPort(open_gl_context);
@@ -125,7 +127,9 @@ void OpenGLOscilloscope::drawLines(OpenGLContext& open_gl_context) {
 
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, 0);
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+#if ! JUCE_IOS
   glDisable(GL_LINE_SMOOTH);
+#endif
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
 }
 
