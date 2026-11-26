@@ -782,11 +782,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				OTHER_CFLAGS = (
-					-Wno-error=implicit-function-declaration,
-					-Wno-error=incompatible-function-pointer-types,
-					-Wno-error=int-conversion,
-					-Wno-error=deprecated-declarations,
-					-Wno-error=return-type,
+					"-Wno-error=implicit-function-declaration",
+					"-Wno-error=incompatible-function-pointer-types",
+					"-Wno-error=int-conversion",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=return-type",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -883,11 +883,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				OTHER_CFLAGS = (
-					-Wno-error=implicit-function-declaration,
-					-Wno-error=incompatible-function-pointer-types,
-					-Wno-error=int-conversion,
-					-Wno-error=deprecated-declarations,
-					-Wno-error=return-type,
+					"-Wno-error=implicit-function-declaration",
+					"-Wno-error=incompatible-function-pointer-types",
+					"-Wno-error=int-conversion",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=return-type",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -983,11 +983,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				OTHER_CFLAGS = (
-					-Wno-error=implicit-function-declaration,
-					-Wno-error=incompatible-function-pointer-types,
-					-Wno-error=int-conversion,
-					-Wno-error=deprecated-declarations,
-					-Wno-error=return-type,
+					"-Wno-error=implicit-function-declaration",
+					"-Wno-error=incompatible-function-pointer-types",
+					"-Wno-error=int-conversion",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=return-type",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1091,11 +1091,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				OTHER_CFLAGS = (
-					-Wno-error=implicit-function-declaration,
-					-Wno-error=incompatible-function-pointer-types,
-					-Wno-error=int-conversion,
-					-Wno-error=deprecated-declarations,
-					-Wno-error=return-type,
+					"-Wno-error=implicit-function-declaration",
+					"-Wno-error=incompatible-function-pointer-types",
+					"-Wno-error=int-conversion",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=return-type",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1198,11 +1198,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				OTHER_CFLAGS = (
-					-Wno-error=implicit-function-declaration,
-					-Wno-error=incompatible-function-pointer-types,
-					-Wno-error=int-conversion,
-					-Wno-error=deprecated-declarations,
-					-Wno-error=return-type,
+					"-Wno-error=implicit-function-declaration",
+					"-Wno-error=incompatible-function-pointer-types",
+					"-Wno-error=int-conversion",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=return-type",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1303,11 +1303,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				OTHER_CFLAGS = (
-					-Wno-error=implicit-function-declaration,
-					-Wno-error=incompatible-function-pointer-types,
-					-Wno-error=int-conversion,
-					-Wno-error=deprecated-declarations,
-					-Wno-error=return-type,
+					"-Wno-error=implicit-function-declaration",
+					"-Wno-error=incompatible-function-pointer-types",
+					"-Wno-error=int-conversion",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=return-type",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -110,6 +110,9 @@ LEGACY_CLANG_FLAGS = [
     "-Wno-error=return-type",
 ]
 
+# old-style plist values may only be bare if they avoid characters such as '='.
+LEGACY_CLANG_FLAGS = ['"%s"' % flag for flag in LEGACY_CLANG_FLAGS]
+
 
 def ident(key):
     return hashlib.md5(key.encode("utf-8")).hexdigest().upper()[:24]
