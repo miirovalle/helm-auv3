@@ -163,7 +163,8 @@ void HelmPlugin::releaseResources() {
 void HelmPlugin::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi_messages) {
   int total_samples = buffer.getNumSamples();
   int num_channels = getTotalNumOutputChannels();
-  getPlayHead()->getCurrentPosition(position_info_);
+  if (AudioPlayHead* play_head = getPlayHead())
+    play_head->getCurrentPosition(position_info_);
   if (position_info_.bpm)
     engine_.setBpm(position_info_.bpm);
 

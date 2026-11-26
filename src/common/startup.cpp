@@ -26,6 +26,8 @@ namespace {
     File patch_dir = File("");
 #ifdef LINUX
     patch_dir = File(OLD_LINUX_USER_BANK_DIRECTORY);
+#elif JUCE_IOS
+    patch_dir = File();
 #elif defined(__APPLE__)
     File data_dir = File::getSpecialLocation(File::userApplicationDataDirectory);
     patch_dir = data_dir.getChildFile(String("Audio/Presets/") + "Helm");

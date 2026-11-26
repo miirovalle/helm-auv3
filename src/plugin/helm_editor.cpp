@@ -35,9 +35,19 @@ HelmEditor::HelmEditor(HelmPlugin& helm) : AudioProcessorEditor(&helm), SynthGui
   constrainer_.setFixedAspectRatio(ratio);
   setConstrainer(&constrainer_);
 
+#if JUCE_IOS
+  Rectangle<int> screen = Desktop::getInstance().getDisplays().getMainDisplay().userArea;
+  float fit = std::min(screen.getWidth() / (1.0f * mopo::DEFAULT_WINDOW_WIDTH),
+                       screen.getHeight() / (1.0f * mopo::DEFAULT_WINDOW_HEIGHT));
+  if (fit > 1.0f)
+    fit = 1.0f;
+  setSize(jmax(1, int(fit * mopo::DEFAULT_WINDOW_WIDTH)),
+          jmax(1, int(fit * mopo::DEFAULT_WINDOW_HEIGHT)));
+#else
   float window_size = LoadSave::loadWindowSize();
   setResizable(true, true);
   setSize(window_size * mopo::DEFAULT_WINDOW_WIDTH, window_size * mopo::DEFAULT_WINDOW_HEIGHT);
+#endif
 
   repaint();
 }
@@ -83,7 +93,12 @@ void HelmEditor::updateFullGui() {
 
 void HelmEditor::checkAnimate() {
   Component* top_level = getTopLevelComponent();
+#if JUCE_IOS
+  // AUv3 hosts rarely hand keyboard focus to the plugin view.
+  bool should_animate = isShowing();
+#else
   bool should_animate = top_level->hasKeyboardFocus(true) && top_level->isShowing();
+#endif
   if (was_animating_ != should_animate) {
     gui_->animate(should_animate && LoadSave::shouldAnimateWidgets());
     was_animating_ = should_animate;

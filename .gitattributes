@@ -1,0 +1,3 @@
+# Keep the generated iOS Xcode project byte-identical across platforms.
+builds/ios/**/*.pbxproj text eol=lf
+builds/ios/generate_project.py text eol=lf

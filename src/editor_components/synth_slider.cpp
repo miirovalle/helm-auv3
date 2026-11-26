@@ -111,8 +111,10 @@ void SynthSlider::mouseDown(const MouseEvent& e) {
     if (parent)
       synth->beginChangeGesture(getName().toStdString());
     if (isRotary()) {
+#if ! JUCE_IOS
       click_position_ = e.getScreenPosition().toFloat();
       setMouseCursor(MouseCursor::NoCursor);
+#endif
     }
   }
 }
@@ -126,8 +128,10 @@ void SynthSlider::mouseUp(const MouseEvent& e) {
       parent->getSynth()->endChangeGesture(getName().toStdString());
 
     if (isRotary()) {
+#if ! JUCE_IOS
       setMouseCursor(MouseCursor::ParentCursor);
       Desktop::getInstance().getMainMouseSource().setScreenPosition(click_position_);
+#endif
     }
   }
 }

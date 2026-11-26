@@ -584,6 +584,11 @@ bool LoadSave::wasUpgraded() {
 }
 
 bool LoadSave::shouldCheckForUpdates() {
+#if JUCE_IOS
+  // App Store handles updates; the desktop update check also relies on
+  // cleartext HTTP which App Transport Security blocks.
+  return false;
+#else
   var config_state = getConfigVar();
   DynamicObject* config_object = config_state.getDynamicObject();
   if (!config_state.isObject())
@@ -593,6 +598,7 @@ bool LoadSave::shouldCheckForUpdates() {
     return true;
 
   return config_object->getProperty("check_for_updates");
+#endif
 }
 
 bool LoadSave::shouldAnimateWidgets() {
@@ -632,6 +638,11 @@ String LoadSave::loadVersion() {
 }
 
 bool LoadSave::shouldAskForPayment() {
+#if JUCE_IOS
+  // The donation nag writes next to the factory bank, which is read-only once
+  // the patches are bundled.
+  return false;
+#else
   static const int days_to_wait = 2;
 
   if (getDidPayInitiallyFile().exists())
@@ -655,6 +666,7 @@ bool LoadSave::shouldAskForPayment() {
 
   int day_last_asked = config_object->getProperty("day_asked_for_payment");
   return getDaysSinceEpoch() - day_last_asked > days_to_wait;
+#endif
 }
 
 std::wstring LoadSave::getComputerKeyboardLayout() {
@@ -699,6 +711,10 @@ File LoadSave::getFactoryBankDirectory() {
   File patch_dir = File("");
 #ifdef LINUX
   patch_dir = File(LINUX_FACTORY_PATCH_DIRECTORY);
+#elif JUCE_IOS
+  // The factory bank ships inside the app / app extension bundle.
+  patch_dir = File::getSpecialLocation(File::currentExecutableFile)
+                  .getParentDirectory().getChildFile("patches");
 #elif defined(__APPLE__)
   File data_dir = File::getSpecialLocation(File::commonApplicationDataDirectory);
   patch_dir = data_dir.getChildFile(String("Audio/Presets/") + "Helm");
@@ -717,6 +733,9 @@ File LoadSave::getBankDirectory() {
   File patch_dir = File("");
 #ifdef LINUX
   patch_dir = File(LINUX_BANK_DIRECTORY);
+#elif JUCE_IOS
+  File documents_dir = File::getSpecialLocation(File::userDocumentsDirectory);
+  patch_dir = documents_dir.getChildFile("Helm").getChildFile("Patches");
 #elif defined(__APPLE__)
   File data_dir = File::getSpecialLocation(File::userApplicationDataDirectory);
   patch_dir = data_dir.getChildFile(String("Audio/Presets/") + "Helm");

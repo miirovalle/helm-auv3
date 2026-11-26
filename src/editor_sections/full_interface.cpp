@@ -27,7 +27,11 @@
 #define TOP_HEIGHT 64
 
 #ifndef PAY_NAG
-  #define PAY_NAG 1
+  #if JUCE_IOS
+    #define PAY_NAG 0
+  #else
+    #define PAY_NAG 1
+  #endif
 #endif
 
 FullInterface::FullInterface(mopo::control_map controls, mopo::output_map modulation_sources,
@@ -38,7 +42,11 @@ FullInterface::FullInterface(mopo::control_map controls, mopo::output_map modula
   open_gl_context.setContinuousRepainting(true);
   open_gl_context.setRenderer(this);
   open_gl_context.attachTo(*getTopLevelComponent());
+#if JUCE_IOS
+  open_gl_context.setOpenGLVersionRequired(OpenGLContext::openGL2_0);
+#else
   open_gl_context.setOpenGLVersionRequired(OpenGLContext::openGL3_2);
+#endif
 
   addSubSection(synthesis_interface_ = new SynthesisInterface(controls, keyboard_state));
   addSubSection(arp_section_ = new ArpSection(TRANS("ARP")));

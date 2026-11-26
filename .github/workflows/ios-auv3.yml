@@ -1,0 +1,101 @@
+name: Build Helm AUv3 (iOS)
+
+on:
+  push:
+    branches: [master, main, ios-auv3]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+env:
+  PROJECT: builds/ios/Helm_iOS.xcodeproj
+  TARGET: Helm - AUv3 App
+  CONFIGURATION: Release
+  BUILD_DIR: build/DerivedData
+
+jobs:
+  build-ios-auv3:
+    name: Build AUv3 for iOS (unsigned)
+    runs-on: macos-15
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+
+      - name: Check generated Xcode project is up to date
+        run: |
+          python3 builds/ios/generate_project.py
+          git diff --exit-code -- builds/ios/Helm_iOS.xcodeproj
+
+      - name: Build (unsigned)
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project "$PROJECT" \
+            -target "$TARGET" \
+            -configuration "$CONFIGURATION" \
+            -sdk iphoneos \
+            -derivedDataPath "$BUILD_DIR" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
+            build 2>&1 | tee build.log
+
+      - name: Report build errors
+        if: failure()
+        run: |
+          if [ -f build.log ]; then
+            grep -E "(error:|fatal error:)" build.log | sort -u | head -n 60 || true
+          fi
+
+      - name: Verify AUv3 bundle
+        run: |
+          set -euo pipefail
+          APP="$BUILD_DIR/Build/Products/$CONFIGURATION-iphoneos/Helm.app"
+          APPEX="$APP/PlugIns/Helm.appex"
+          test -d "$APP" || { echo "App bundle missing"; exit 1; }
+          test -d "$APPEX" || { echo "AUv3 app extension missing"; exit 1; }
+          test -d "$APPEX/patches" || { echo "Factory patches missing from appex"; exit 1; }
+
+          plutil -lint "$APP/Info.plist"
+          plutil -lint "$APPEX/Info.plist"
+          plutil -extract NSExtension.NSExtensionPointIdentifier raw "$APPEX/Info.plist"
+          plutil -extract NSExtension.NSExtensionAttributes.AudioComponents.0.factoryFunction raw "$APPEX/Info.plist"
+
+          file "$APPEX/Helm"
+          lipo -info "$APPEX/Helm"
+
+          # The AUv3 entry point JUCE exports (referenced by NSExtensionPrincipalClass).
+          nm -gU "$APPEX/Helm" | grep -q "_OBJC_CLASS_\$_helmFactoryAUv3" \
+            || { echo "helmFactoryAUv3 not found in appex"; exit 1; }
+
+          mkdir -p dist
+          (cd "$APP/PlugIns" && zip -qry "$OLDPWD/dist/Helm-AUv3-iOS.appex.zip" Helm.appex)
+
+      - name: Package unsigned IPA
+        run: |
+          set -euo pipefail
+          APP="$BUILD_DIR/Build/Products/$CONFIGURATION-iphoneos/Helm.app"
+          rm -rf dist/Payload
+          mkdir -p dist/Payload
+          cp -R "$APP" dist/Payload/
+          (cd dist && zip -qry Helm-AUv3-iOS-unsigned.ipa Payload)
+          rm -rf dist/Payload
+          ls -la dist
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Helm-AUv3-iOS-unsigned
+          path: |
+            dist/Helm-AUv3-iOS-unsigned.ipa
+            dist/Helm-AUv3-iOS.appex.zip
+            build.log
+          if-no-files-found: error
