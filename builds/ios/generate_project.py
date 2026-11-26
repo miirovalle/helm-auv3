@@ -255,6 +255,9 @@ def target_settings(config, kind):
         })
 
     settings["PRODUCT_NAME"] = q(PROJECT_NAME)
+    # The app extension may only link extension-safe code, and Xcode enforces
+    # this for every target in the dependency graph.
+    settings["APPLICATION_EXTENSION_API_ONLY"] = "YES"
 
     if kind == "lib":
         settings["EXECUTABLE_PREFIX"] = "lib"
@@ -263,7 +266,6 @@ def target_settings(config, kind):
         settings["PRODUCT_BUNDLE_IDENTIFIER"] = q(AUV3_BUNDLE_ID)
         settings["INFOPLIST_FILE"] = q("Info-AUv3.plist")
         settings["SKIP_INSTALL"] = "YES"
-        settings["APPLICATION_EXTENSION_API_ONLY"] = "NO"
         settings["LD_RUNPATH_SEARCH_PATHS"] = [
             '"$(inherited)"',
             '"@executable_path/Frameworks"',
