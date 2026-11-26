@@ -74,7 +74,6 @@ HEADER_SEARCH_PATHS = [
 FRAMEWORKS = [
     "Accelerate",
     "AudioToolbox",
-    "AudioUnit",
     "AVFoundation",
     "CoreAudio",
     "CoreAudioKit",
