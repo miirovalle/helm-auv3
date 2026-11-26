@@ -229,6 +229,7 @@ public:
 
     static Rectangle<int> rotatedScreenPosToReal (const Rectangle<int>& r)
     {
+       #if ! defined (__APPLICATION_EXTENSION__)
         if (! SystemStats::isRunningInAppExtensionSandbox() && isUsingOldRotationMethod())
         {
             const Rectangle<int> screen (convertToRectInt ([UIScreen mainScreen].bounds));
@@ -253,12 +254,14 @@ public:
                 default: jassertfalse; // unknown orientation!
             }
         }
+       #endif
 
         return r;
     }
 
     static Rectangle<int> realScreenPosToRotated (const Rectangle<int>& r)
     {
+       #if ! defined (__APPLICATION_EXTENSION__)
         if (! SystemStats::isRunningInAppExtensionSandbox() && isUsingOldRotationMethod())
         {
             const Rectangle<int> screen (convertToRectInt ([UIScreen mainScreen].bounds));
@@ -283,6 +286,7 @@ public:
                 default: jassertfalse; // unknown orientation!
             }
         }
+       #endif
 
         return r;
     }

@@ -696,7 +696,9 @@ struct iOSAudioIODevice::Pimpl      : public AudioPlayHead,
                                             &dataSize);
         if (err == noErr)
         {
-           #if (! defined __IPHONE_OS_VERSION_MIN_REQUIRED) || (! defined __IPHONE_10_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0)
+           #if defined (__APPLICATION_EXTENSION__)
+            ignoreUnused (hostUrl);
+           #elif (! defined __IPHONE_OS_VERSION_MIN_REQUIRED) || (! defined __IPHONE_10_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0)
             [[UIApplication sharedApplication] openURL: (NSURL*)hostUrl];
            #else
             [[UIApplication sharedApplication] openURL: (NSURL*)hostUrl options: @{} completionHandler: nil];
@@ -804,8 +806,12 @@ struct iOSAudioIODevice::Pimpl      : public AudioPlayHead,
 
             interAppAudioConnected = connected;
 
+           #if defined (__APPLICATION_EXTENSION__)
+            bool inForeground = true;
+           #else
             UIApplicationState appstate = [UIApplication sharedApplication].applicationState;
             bool inForeground = (appstate != UIApplicationStateBackground);
+           #endif
 
             if (interAppAudioConnected || inForeground)
             {

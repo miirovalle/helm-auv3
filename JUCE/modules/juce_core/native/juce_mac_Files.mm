@@ -420,7 +420,10 @@ bool JUCE_CALLTYPE Process::openDocument (const String& fileName, const String& 
       #if JUCE_IOS
         ignoreUnused (parameters);
 
-       #if (! defined __IPHONE_OS_VERSION_MIN_REQUIRED) || (! defined __IPHONE_10_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0)
+       #if defined (__APPLICATION_EXTENSION__)
+        ignoreUnused (filenameAsURL);
+        return false;
+       #elif (! defined __IPHONE_OS_VERSION_MIN_REQUIRED) || (! defined __IPHONE_10_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0)
         return [[UIApplication sharedApplication] openURL: filenameAsURL];
        #else
         [[UIApplication sharedApplication] openURL: filenameAsURL options: @{} completionHandler: nil];

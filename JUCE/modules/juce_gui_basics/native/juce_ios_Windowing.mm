@@ -655,16 +655,24 @@ bool DragAndDropContainer::performExternalDragDropOfText (const String&, Compone
 //==============================================================================
 void Desktop::setScreenSaverEnabled (const bool isEnabled)
 {
+   #if ! defined (__APPLICATION_EXTENSION__)
     if (! SystemStats::isRunningInAppExtensionSandbox())
         [[UIApplication sharedApplication] setIdleTimerDisabled: ! isEnabled];
+   #else
+    ignoreUnused (isEnabled);
+   #endif
 }
 
 bool Desktop::isScreenSaverEnabled()
 {
+   #if defined (__APPLICATION_EXTENSION__)
+    return true;
+   #else
     if (SystemStats::isRunningInAppExtensionSandbox())
         return true;
 
     return ! [[UIApplication sharedApplication] isIdleTimerDisabled];
+   #endif
 }
 
 //==============================================================================
@@ -724,10 +732,14 @@ double Desktop::getDefaultMasterScale()
 
 Desktop::DisplayOrientation Desktop::getCurrentOrientation() const
 {
+   #if defined (__APPLICATION_EXTENSION__)
+    return Orientations::convertToJuce (UIInterfaceOrientationPortrait);
+   #else
     UIInterfaceOrientation orientation = SystemStats::isRunningInAppExtensionSandbox() ? UIInterfaceOrientationPortrait
                                                                                        : [[UIApplication sharedApplication] statusBarOrientation];
 
     return Orientations::convertToJuce (orientation);
+   #endif
 }
 
 void Desktop::Displays::findDisplays (float masterScale)
