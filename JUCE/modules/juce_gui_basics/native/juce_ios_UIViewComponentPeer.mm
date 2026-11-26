@@ -229,7 +229,7 @@ public:
 
     static Rectangle<int> rotatedScreenPosToReal (const Rectangle<int>& r)
     {
-       #if ! defined (__APPLICATION_EXTENSION__)
+       #if ! JUCE_APP_EXTENSION
         if (! SystemStats::isRunningInAppExtensionSandbox() && isUsingOldRotationMethod())
         {
             const Rectangle<int> screen (convertToRectInt ([UIScreen mainScreen].bounds));
@@ -261,7 +261,7 @@ public:
 
     static Rectangle<int> realScreenPosToRotated (const Rectangle<int>& r)
     {
-       #if ! defined (__APPLICATION_EXTENSION__)
+       #if ! JUCE_APP_EXTENSION
         if (! SystemStats::isRunningInAppExtensionSandbox() && isUsingOldRotationMethod())
         {
             const Rectangle<int> screen (convertToRectInt ([UIScreen mainScreen].bounds));

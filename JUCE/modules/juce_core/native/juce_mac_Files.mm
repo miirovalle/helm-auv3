@@ -420,7 +420,7 @@ bool JUCE_CALLTYPE Process::openDocument (const String& fileName, const String& 
       #if JUCE_IOS
         ignoreUnused (parameters);
 
-       #if defined (__APPLICATION_EXTENSION__)
+       #if JUCE_APP_EXTENSION
         ignoreUnused (filenameAsURL);
         return false;
        #elif (! defined __IPHONE_OS_VERSION_MIN_REQUIRED) || (! defined __IPHONE_10_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0)

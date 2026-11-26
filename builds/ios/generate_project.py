@@ -205,6 +205,10 @@ def plugin_defines(kind):
         "JucePlugin_Build_RTAS=0",
         "JucePlugin_Build_AAX=0",
         "JucePlugin_Build_Standalone=1" if kind == "app" else "JucePlugin_Build_Standalone=0",
+        # Lets the patched JUCE 5.3.2 sources skip APIs that are unavailable
+        # inside app extensions. The shared library is extension-safe so the
+        # app extension may link it.
+        "JUCE_APP_EXTENSION=1" if kind in ("lib", "au") else "JUCE_APP_EXTENSION=0",
     ]
 
 

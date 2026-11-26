@@ -696,7 +696,7 @@ struct iOSAudioIODevice::Pimpl      : public AudioPlayHead,
                                             &dataSize);
         if (err == noErr)
         {
-           #if defined (__APPLICATION_EXTENSION__)
+           #if JUCE_APP_EXTENSION
             ignoreUnused (hostUrl);
            #elif (! defined __IPHONE_OS_VERSION_MIN_REQUIRED) || (! defined __IPHONE_10_0) || (__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_10_0)
             [[UIApplication sharedApplication] openURL: (NSURL*)hostUrl];
@@ -806,7 +806,7 @@ struct iOSAudioIODevice::Pimpl      : public AudioPlayHead,
 
             interAppAudioConnected = connected;
 
-           #if defined (__APPLICATION_EXTENSION__)
+           #if JUCE_APP_EXTENSION
             bool inForeground = true;
            #else
             UIApplicationState appstate = [UIApplication sharedApplication].applicationState;

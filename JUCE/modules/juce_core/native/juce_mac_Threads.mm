@@ -59,7 +59,7 @@ JUCE_API void JUCE_CALLTYPE Process::hide()
     {
        #if JUCE_MAC
         [NSApp hide: nil];
-       #elif JUCE_IOS && ! defined (__APPLICATION_EXTENSION__)
+       #elif JUCE_IOS && ! JUCE_APP_EXTENSION
         [[UIApplication sharedApplication] performSelector: @selector(suspend)];
        #endif
     }

@@ -39,7 +39,7 @@ void MessageManager::runDispatchLoop()
 
 void MessageManager::stopDispatchLoop()
 {
-   #if ! defined (__APPLICATION_EXTENSION__)
+   #if ! JUCE_APP_EXTENSION
     if (! SystemStats::isRunningInAppExtensionSandbox())
        [[[UIApplication sharedApplication] delegate] applicationWillTerminate: [UIApplication sharedApplication]];
    #endif

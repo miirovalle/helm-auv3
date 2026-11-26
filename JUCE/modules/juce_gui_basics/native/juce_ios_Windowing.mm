@@ -655,7 +655,7 @@ bool DragAndDropContainer::performExternalDragDropOfText (const String&, Compone
 //==============================================================================
 void Desktop::setScreenSaverEnabled (const bool isEnabled)
 {
-   #if ! defined (__APPLICATION_EXTENSION__)
+   #if ! JUCE_APP_EXTENSION
     if (! SystemStats::isRunningInAppExtensionSandbox())
         [[UIApplication sharedApplication] setIdleTimerDisabled: ! isEnabled];
    #else
@@ -665,7 +665,7 @@ void Desktop::setScreenSaverEnabled (const bool isEnabled)
 
 bool Desktop::isScreenSaverEnabled()
 {
-   #if defined (__APPLICATION_EXTENSION__)
+   #if JUCE_APP_EXTENSION
     return true;
    #else
     if (SystemStats::isRunningInAppExtensionSandbox())
@@ -732,7 +732,7 @@ double Desktop::getDefaultMasterScale()
 
 Desktop::DisplayOrientation Desktop::getCurrentOrientation() const
 {
-   #if defined (__APPLICATION_EXTENSION__)
+   #if JUCE_APP_EXTENSION
     return Orientations::convertToJuce (UIInterfaceOrientationPortrait);
    #else
     UIInterfaceOrientation orientation = SystemStats::isRunningInAppExtensionSandbox() ? UIInterfaceOrientationPortrait
