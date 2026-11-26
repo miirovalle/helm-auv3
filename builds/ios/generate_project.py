@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Generates builds/ios/Helm_iOS.xcodeproj.
 
 Helm ships with JUCE 5.3.2 but without the Projucer sources, so the iOS
@@ -223,7 +223,7 @@ def target_settings(config, kind):
         "CLANG_CXX_LANGUAGE_STANDARD": '"c++14"',
         "CLANG_CXX_LIBRARY": '"libc++"',
         "CLANG_ENABLE_MODULES": "YES",
-        "CLANG_ENABLE_OBJC_ARC": "YES",
+        "CLANG_ENABLE_OBJC_ARC": "NO",
         "CODE_SIGN_STYLE": "Automatic",
         "GCC_NO_COMMON_BLOCKS": "YES",
         "GCC_PREPROCESSOR_DEFINITIONS": defines,
@@ -289,7 +289,7 @@ def project_settings(config):
         "CLANG_CXX_LANGUAGE_STANDARD": '"c++14"',
         "CLANG_CXX_LIBRARY": '"libc++"',
         "CLANG_ENABLE_MODULES": "YES",
-        "CLANG_ENABLE_OBJC_ARC": "YES",
+        "CLANG_ENABLE_OBJC_ARC": "NO",
         "ENABLE_STRICT_OBJC_MSGSEND": "YES",
         "GCC_C_LANGUAGE_STANDARD": "gnu11",
         "GCC_NO_COMMON_BLOCKS": "YES",
@@ -543,4 +543,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
