@@ -201,7 +201,7 @@ def plugin_defines(kind):
         "JucePlugin_Build_VST=0",
         "JucePlugin_Build_VST3=0",
         "JucePlugin_Build_AU=0",
-        "JucePlugin_Build_AUv3=1" if kind == "au" else "JucePlugin_Build_AUv3=0",
+        "JucePlugin_Build_AUv3=1" if kind in ("lib", "au") else "JucePlugin_Build_AUv3=0",
         "JucePlugin_Build_RTAS=0",
         "JucePlugin_Build_AAX=0",
         "JucePlugin_Build_Standalone=1" if kind == "app" else "JucePlugin_Build_Standalone=0",
